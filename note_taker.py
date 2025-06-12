@@ -4,7 +4,8 @@ while True:
     print("Menu:")
     print("1. Add a new note")
     print("2. View previous notes")
-    print("3. Exit")
+    print("3. Change notes")
+    print("4. Exit")
 
     choice = int(input("Enter your choice: "))
     if choice == 4:
@@ -14,6 +15,8 @@ while True:
         print("New Entry Added")
     elif choice == 2:
         utils.list_notes()
+    elif choice == 3:
+        utils.change_notes()
     else:
         print("No Such Choice. Enter again")
 

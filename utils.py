@@ -3,9 +3,10 @@ import os
 
 def new_note():
     today = datetime.now()
-    new_entry = open(f"notes\{today.day}-{today.month}-{today.year}.txt", "a")
+    title = input("How do you want to name your note?")
+    new_note = open(f"notes\{title}.txt", "a")
     time = today.strftime("%H:%M")
-    new_entry.write(f"{time}\n")
+    new_note.write(f"{time}\n")
 
     print("Write your entry and type 'EOF' on a separate line to inicate end of an entry:")
     paragraph = []
@@ -15,10 +16,10 @@ def new_note():
             break
         paragraph.append(line)
     
-    entry = "\n".join(paragraph)
-    new_entry.write(entry)
-    new_entry.write("\n\n")
-    new_entry.close()
+    note = "\n".join(paragraph)
+    new_note.write(note)
+    new_note.write("\n\n")
+    new_note.close()
 
 def list_notes():
     num = 1
@@ -48,3 +49,46 @@ def list_notes():
             
         if num == choice:
             print("No such entry")
+
+def change_notes():
+    num = 1
+    print("These are all the notes: ")
+    for entry in os.listdir("notes"):
+        print(f"{num}. {entry}")
+        num += 1
+
+    while True:
+        choice = int(input("Which note do you want to change? Enter a number: "))
+        num = 1        
+        found = False
+        for entry in os.listdir("notes"):
+            if num == choice:
+                found = True
+                today = datetime.now()
+                edit_note = open(f"notes\{entry}", "a")
+                time = today.strftime("%H:%M")
+                edit_note.write(f"{time}\n")
+
+                print("Write your entry and type 'EOF' on a separate line to inicate end of an entry:")
+                paragraph = []
+                while True:
+                    line = input()
+                    if line == "EOF":
+                        break
+                    paragraph.append(line)
+    
+                note = "\n".join(paragraph)
+                edit_note.write(note)
+                edit_note.write("\n\n")
+                edit_note.close()
+
+                break
+
+            num += 1
+
+        if not found: 
+            print("There is no such note")
+        
+        leave = input("Have you finished? y/n \n")
+        if leave == 'y':
+            break
