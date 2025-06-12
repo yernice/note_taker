@@ -4,7 +4,8 @@ import os
 def new_note():
     today = datetime.now()
     title = input("How do you want to name your note?")
-    new_note = open(f"notes\{title}.txt", "a")
+    file_path = f"notes\{title}.txt"
+    new_note = open(f"{file_path}", "a")
     time = today.strftime("%H:%M")
     new_note.write(f"{time}\n")
 
@@ -20,6 +21,11 @@ def new_note():
     new_note.write(note)
     new_note.write("\n\n")
     new_note.close()
+
+    tags_choice = input("Do you want to add tags to it? y/n \n")
+    if tags_choice:
+        folder_path = f"notes\\"
+        add_tag(title, folder_path, file_path)
 
 def list_notes():
     num = 1
@@ -92,3 +98,16 @@ def change_notes():
         leave = input("Have you finished? y/n \n")
         if leave == 'y':
             break
+
+def add_tag(title, folder_path, file_path):
+    print("Write tags and separate them with enter. Write EOF to declare that you have finished")
+    tags_list = []
+    while True:
+        line = input()
+        if line == "EOF":
+            break
+        tags_list.append(line)
+    
+    new_file_path = folder_path + title + "_" + "_".join(tags_list) + ".txt"
+    os.rename(file_path, new_file_path)
+    
