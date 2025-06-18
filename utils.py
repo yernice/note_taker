@@ -112,6 +112,7 @@ def change_notes():
             break
 
 def add_tag(file_path):
+    # reaeding new tags
     print("Write tags and separate them with enter. Write EOF to declare that you have finished")
     tags_list = []
     while True:
@@ -119,7 +120,13 @@ def add_tag(file_path):
         if line == "EOF":
             break
         tags_list.append(line)
+
+    # addings tags to the main list
+    all_tags = open("all_tags.txt", "a")
+    for tag in tags_list:
+        all_tags.write(f"{tag}\n")
     
+    # addings tags
     file_name, ext = file_path.split(".")
     new_file_path = file_name + "_" + "_".join(tags_list) + ".txt"
     os.rename(file_path, new_file_path)
