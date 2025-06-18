@@ -131,3 +131,9 @@ def add_tag(file_path):
     new_file_path = file_name + "_" + "_".join(tags_list) + ".txt"
     os.rename(file_path, new_file_path)
     
+def search_by_tag():
+    all_tags = open("all_tags.txt")
+    print("These are all the tags: \n")
+    print(all_tags.read())
+
+    
